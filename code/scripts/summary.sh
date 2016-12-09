@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
-module load jje/jjeutils/0.1a 
+module load jje/jjeutils/0.1a| /dev/null
 module load jje/kent/2014.02.19 
 module load R
-module load perl
+
+echo "Location of summary .txt files = EE282project/data/processed.
+Location of plots = EE282project/output/figures."
 
 FILE=$1
 touch /data/users/tgallagh/EE282project/data/processed/summary.txt
@@ -39,3 +41,8 @@ plotCDF /data/users/tgallagh/EE282project/data/processed/seq.sorted.sixes.txt /d
 bioawk -c fastx '{ print gc($seq) }' $FILE > /data/users/tgallagh/EE282project/data/processed/gc.txt ; 
 #length in new .txt file for R 
 bioawk -c fastx '{ print length($seq) }' $FILE > /data/users/tgallagh/EE282project/data/processed/length.txt 
+
+Rscript /data/users/tgallagh/EE282project/code/scripts/summary_plots.R
+
+
+ 
