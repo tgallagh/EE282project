@@ -1,7 +1,8 @@
-#!/bin/bash
+#!/usr/bin/env bash
 module load jje/jjeutils/0.1a 
 module load jje/kent/2014.02.19 
 module load R
+module load perl
 
 FILE=$1
 touch /data/users/tgallagh/EE282project/data/processed/summary.txt
@@ -30,11 +31,11 @@ bioawk -c fastx '{ if (length($seq) > 100000) { print(">"$name "\n" $seq) }}' $F
 |echo "The number of sequences with lengths >100,000 bp is:" $(grep -o -c "^>") >> $OUTPUT
 
 #CDF plot
-faSize -detailed $FILE | sort -rnk 2,2 > /data/users/tgallagh/EE282project/data/processed/seq.sorted.sixes.txt \
-plotCDF /data/users/tgallagh/EE282project/data/processed/seq.sorted.sixes.txt /data/users/tgallagh/EE282project/output/figures
+faSize -detailed $FILE | sort -rnk 2,2 > /data/users/tgallagh/EE282project/data/processed/seq.sorted.sixes.txt &&
+plotCDF /data/users/tgallagh/EE282project/data/processed/seq.sorted.sixes.txt /data/users/tgallagh/EE282project/output/figures/CDFplot.png
+
 
 #GC contect in new .txt file for R 
 bioawk -c fastx '{ print gc($seq) }' $FILE > /data/users/tgallagh/EE282project/data/processed/gc.txt ; 
-
 #length in new .txt file for R 
 bioawk -c fastx '{ print length($seq) }' $FILE > /data/users/tgallagh/EE282project/data/processed/length.txt 
