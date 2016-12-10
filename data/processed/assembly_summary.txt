@@ -1,0 +1,13 @@
+Summary of sequence information
+
+The number of bases is: 143726002
+The number of N's is: 1152978
+The total number of sequences is: 1870
+
+The number of nucleotides in sequences with lengths <100,000 bp is: 6178199
+The number of N's in sequences with lengths <100,000 bp is:  328
+The number of sequences with lengths <100,000 bp is: 1863
+
+The number of nucleotides in sequences with lengths >100,000 bp is: 137547966
+The number of N's in sequences with lengths >100,000 bp is:  7
+The number of sequences with lengths >100,000 bp is: 7
