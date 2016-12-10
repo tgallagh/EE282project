@@ -42,12 +42,16 @@ bioawk -c gff '$seqname == "4" {print } ' < $FILE \
 bioawk -c gff '{print $feature }' < $FILE \
 |sort \
 | uniq -c | sort -rnk1,1 \
- > /data/users/tgallagh/EE282project/data/processed/total_features.txt
+ > /data/users/tgallagh/EE282project/data/processed/annotation_total_features.txt
 
-grep -o FBgn[0-9]* < $FILE | uniq -c | sort -n > /data/users/tgallagh/EE282project/data/processed/transcripts.txt
+bioawk -c gff '$feature == "mRNA" {print}' < $FILE  \
+ | grep -o FBgn[0-9]* | uniq -c | sort -n \
+ > /data/users/tgallagh/EE282project/data/processed/annotation_transcript_number.txt
 
-bioawk -c gff '$feature == "gene" {print}'< $FILE | awk '{print $5-$4}' | sort -n >  /data/users/tgallagh/EE282project/data/processed/gene_length.txt
 
- bioawk -c gff '$feature == "exon" {print}'<$FILE | awk '{print $5-$4}' | sort -n > /data/users/tgallagh/EE282project/data/processed/exon_length.txt
+bioawk -c gff '$feature == "gene" {print}'< $FILE | awk '{print $5-$4}' | sort -n >  /data/users/tgallagh/EE282project/data/processed/annotation_gene_length.txt
+
+ bioawk -c gff '$feature == "exon" {print}'<$FILE | awk '{print $5-$4}' | sort -n > /data/users/tgallagh/EE282project/data/processed/annotation_exon_length.txt
 
 Rscript annotation_plots.R 
+
